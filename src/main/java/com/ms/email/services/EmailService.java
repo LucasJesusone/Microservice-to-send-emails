@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 
@@ -45,4 +47,7 @@ public class EmailService {
     }
 
 
+    public Optional<EmailModel> getById(UUID emailId) {
+        return emailRepository.findById(emailId);
+    }
 }

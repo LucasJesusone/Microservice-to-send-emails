@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class EmailController {
@@ -34,4 +36,18 @@ public class EmailController {
     public List<EmailModel> findAll() {
         return emailService.findAll();
     }
+
+
+
+    @GetMapping("getEmails/{emailId}")
+    public ResponseEntity<EmailModel> getById(@PathVariable final UUID emailId) throws Exception {
+        Optional<EmailModel> emailModel = emailService.getById(emailId);
+        if (emailModel.isPresent()) {
+            return new ResponseEntity<>(emailModel.get(), HttpStatus.OK);
+        }
+        else {
+            throw new Exception();
+        }
+    }
+
 }
